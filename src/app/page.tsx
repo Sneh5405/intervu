@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <div className="m-10">
       
-            <SignedOut>
+            {/* <SignedOut>
               <SignInButton />
               <SignUpButton>
                 
@@ -14,7 +14,7 @@ export default function Home() {
             <SignedIn>
               <UserButton />
             </SignedIn>
-          
+           */}
     </div>
   );
 }
