@@ -10,3 +10,4 @@ export default defineSchema({
         clerkId: v.string(),
     }).index("by_clerk_id", ["clerkId"]),
 })
+// https://possible-oyster-62.clerk.accounts.dev
