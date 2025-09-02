@@ -5,16 +5,10 @@ export default function Home() {
   return (
     <div className="m-10">
       
-            {/* <SignedOut>
-              <SignInButton />
-              <SignUpButton>
-                
-              </SignUpButton>
-            </SignedOut>
-            <SignedIn>
-              <UserButton />
-            </SignedIn>
-           */}
+            
+      <SignInButton>
+        x
+            </SignInButton>
     </div>
   );
 }
