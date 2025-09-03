@@ -9,5 +9,25 @@ export default defineSchema({
         role: v.union(v.literal("candidate"), v.literal("interviewer")),
         clerkId: v.string(),
     }).index("by_clerk_id", ["clerkId"]),
+
+    interviews: defineTable({
+        title: v.string(),
+        description: v.optional(v.string()),
+        startTime: v.number(),
+        endTime: v.optional(v.number()),
+        status: v.string(),
+        streamCallId: v.string(),
+        candidateId: v.string(),
+        interviewerIds: v.array(v.string()),
+    })
+        .index("by_candidate_id", ["candidateId"])
+        .index("by_stream_call_id", ["streamCallId"]),
+    
+    comments: defineTable({
+        content: v.string(),
+        rating: v.string(),
+        interviewId: v.string(),
+        interviewerId: v.string(),
+    }).index("by_interview", ["interviewId"])
 })
 // https://possible-oyster-62.clerk.accounts.dev
