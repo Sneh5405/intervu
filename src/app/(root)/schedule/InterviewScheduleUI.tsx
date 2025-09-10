@@ -50,7 +50,10 @@ function InterviewScheduleUI() {
   });
 
   const scheduleMeeting = async () => {
-    if (!client || !user) return;
+    if (!client || !user) {
+      console.log("Missing client or user", { client, user });
+      return;
+    }
     if (!formData.candidateId || formData.interviewerIds.length === 0) {
       toast.error("Please select both candidate and at least one interviewer");
       return;
@@ -60,13 +63,17 @@ function InterviewScheduleUI() {
 
     try {
       const { title, description, date, time, candidateId, interviewerIds } = formData;
+      console.log("Form data:", formData);
       const [hours, minutes] = time.split(":");
       const meetingDate = new Date(date);
       meetingDate.setHours(parseInt(hours), parseInt(minutes), 0);
 
       const id = crypto.randomUUID();
+      console.log("Generated meeting id:", id);
       const call = client.call("default", id);
+      console.log("Created call object:", call);
 
+      console.log("Calling getOrCreate...");
       await call.getOrCreate({
         data: {
           starts_at: meetingDate.toISOString(),
@@ -76,7 +83,9 @@ function InterviewScheduleUI() {
           },
         },
       });
+      console.log("getOrCreate finished");
 
+      console.log("Calling createInterview mutation...");
       await createInterview({
         title,
         description,
@@ -86,6 +95,7 @@ function InterviewScheduleUI() {
         candidateId,
         interviewerIds,
       });
+      console.log("createInterview finished");
 
       setOpen(false);
       toast.success("Meeting scheduled successfully!");
@@ -99,7 +109,7 @@ function InterviewScheduleUI() {
         interviewerIds: user?.id ? [user.id] : [],
       });
     } catch (error) {
-      console.error(error);
+      console.error("Error in scheduleMeeting:", error);
       toast.error("Failed to schedule meeting. Please try again.");
     } finally {
       setIsCreating(false);

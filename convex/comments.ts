@@ -4,9 +4,9 @@ import { v } from "convex/values";
 // add new comment
 export const addComment = mutation({
     args: {
-        content: v.string(),
-        rating: v.string(),
         interviewId: v.id("interviews"),
+        content: v.string(),
+        rating: v.number(),
     },
     handler: async (ctx, args) => {
 
@@ -18,7 +18,7 @@ export const addComment = mutation({
         await ctx.db.insert("comments", {
             interviewId: args.interviewId,
             content: args.content,
-            rating: args.rating,
+            rating: args.rating.toString(),
             interviewerId: identity.subject,
         })
 

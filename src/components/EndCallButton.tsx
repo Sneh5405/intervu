@@ -19,9 +19,6 @@ function EndCallButton() {
 
   if (!call || !interview) return null;
 
-  const isMeetingOwner = localParticipant?.userId === call.state.createdBy?.id;
-
-  if (!isMeetingOwner) return null;
 
   const endCall = async () => {
     try {
